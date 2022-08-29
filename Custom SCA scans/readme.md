@@ -15,6 +15,21 @@ Example:
 ```
 python3 custom-sca.py  --user wazuh --passw wazuh  --policyid cis_centos7_linux --group testgroup testgroup2
 ```
+
+It is possible to configure this script to automatically run with Wazuh's `command` wodle. For example: 
+```yaml
+<wodle name="command">
+    <tag>custom-sca-scan</tag>
+    <disabled>no</disabled>
+    <command>/var/ossec/framework/python/bin/python3 /home/custom-sca/custom-sca.py --user wazuh --passw wazuh  --policyid cis_centos7_linux --group testgroup testgroup2</command>
+    <interval>1h</interval>
+    <ignore_output>yes</ignore_output>
+    <run_on_start>yes</run_on_start>
+    <timeout>10</timeout>
+  </wodle>
+```
+Make sure that Wazuh have access to the directory where the script is located, and running permissions.
+
 ## Custom rules
 To be able to see the alerts on the manager, it is needed to create one or more custom rules.  The `location` of the events is `custom_sca_scan`. With that, we can create for example the following rules:
 ```yaml
