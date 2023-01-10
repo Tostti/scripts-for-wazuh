@@ -12,12 +12,12 @@ This script runs in python 3. It requires the next parameters:
 - **port** (optional) : it is the port of the manager's API. If no value is passed, it will be `55000`.
 
 Example:
-```
+```console
 python3 custom-sca.py  --user wazuh --passw wazuh  --policyid cis_centos7_linux --group testgroup testgroup2
 ```
 
 It is possible to configure this script to automatically run with Wazuh's `command` wodle. For example: 
-```yaml
+```xml
 <wodle name="command">
     <tag>custom-sca-scan</tag>
     <disabled>no</disabled>
@@ -32,7 +32,7 @@ Make sure that Wazuh have access to the directory where the script is located, a
 
 ## Custom rules
 To be able to see the alerts on the manager, it is needed to create one or more custom rules.  The `location` of the events is `custom_sca_scan`. With that, we can create for example the following rules:
-```yaml
+```xml
   <rule id="100002" level="0">
     <description>Manual sca scan results</description>
     <location>custom_sca_scan</location>
